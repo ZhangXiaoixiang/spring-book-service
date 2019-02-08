@@ -1,10 +1,12 @@
 package com.demo.spring.book.service.api;
 
+import com.demo.spring.book.service.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,10 +20,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookApi {
     @Autowired
     private Environment environment;
+    @Autowired
+    private Person person;
     @RequestMapping(value = "/home")
     public String home(){
 
         System.out.println("读取到的值是: " +environment.getProperty("test.user.name"));
         return "读取到的值是: " +environment.getProperty("test.user.name");
     }
+
+   @RequestMapping(value = "/getPerson")
+    public String getPerson(){
+       System.out.println("输出的Person实例:  "+person+"   ,名字:   "+person.getName());
+       return person.toString();
+
+   }
+
+
+
+
 }
+
